@@ -4,7 +4,7 @@ import os
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-from persistence import get_previous_messages
+from database import get_previous_messages, get_recipients
 
 
 def send_email(message_object, short_story):
@@ -14,7 +14,7 @@ def send_email(message_object, short_story):
     # you == the recipient's email address
     msg['Subject'] = 'Word of the day ' + str(message_object['word_of_the_day']).upper()
     msg['From'] = "noreply@rommeldetorres.me"
-    msg['To'] = "detorresrc@gmail.com"
+    msg['To'] = ",".join(get_recipients())
 
     msg.attach(MIMEText(format_message(message_object), "html"))
     msg.attach(MIMEText("<hr/><h1 style='color: blue'>Short Story</h1>" + short_story, "html"))

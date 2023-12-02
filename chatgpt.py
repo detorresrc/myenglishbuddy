@@ -1,5 +1,5 @@
 from common import get_ai_short_story_message
-from persistence import get_words
+from database import get_words
 
 
 def generate_short_story(client, word_of_the_day):

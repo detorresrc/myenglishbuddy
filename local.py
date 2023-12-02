@@ -4,7 +4,7 @@ from openai import OpenAI
 from chatgpt import generate_short_story
 from common import get_ai_message
 from sender import send_email
-from persistence import add_new_word, get_words, initialize
+from database import add_new_word, get_words, initialize
 import json
 
 load_dotenv()

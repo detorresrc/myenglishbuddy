@@ -5,13 +5,15 @@ import os
 mongo_client = None
 db = None
 messages = None
+recipients = None
 
 
 def initialize():
-    global mongo_client, db, messages
+    global mongo_client, db, messages, recipients
     mongo_client = pymongo.MongoClient(os.getenv("MONGO_URI"))
     db = mongo_client[os.getenv("MONGO_DB")]
     messages = db["messages"]
+    recipients = db["recipients"]
 
 
 def add_new_word(word, content, short_story):
@@ -32,3 +34,9 @@ def get_previous_messages():
         return_messages.append(message['content'])
     return return_messages
 
+
+def get_recipients():
+    list_recipients = []
+    for recipient in recipients.find():
+        list_recipients.append(recipient['email'])
+    return list_recipients
