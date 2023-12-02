@@ -1,5 +1,6 @@
 from openai import OpenAI
 
+from chatgpt import generate_short_story
 from common import get_ai_message
 from sender import send_email
 from persistence import add_new_word, get_words, initialize
@@ -19,9 +20,10 @@ def lambda_handler(event, context):
 
         message = completion.choices[0].message.content.strip()
         message_object = json.loads(message)
-        add_new_word(message_object['word_of_the_day'], message)
+        short_story = generate_short_story(client, message_object['word_of_the_day'])
+        send_email(message_object, short_story)
+        add_new_word(message_object['word_of_the_day'], message, short_story)
 
-        send_email(message_object)
         return {
             'statusCode': 200,
             'body': json.dumps('Success')

@@ -7,7 +7,7 @@ from email.mime.text import MIMEText
 from persistence import get_previous_messages
 
 
-def send_email(message_object):
+def send_email(message_object, short_story):
     msg = MIMEMultipart()
 
     # me == the sender's email address
@@ -16,8 +16,9 @@ def send_email(message_object):
     msg['From'] = "noreply@rommeldetorres.me"
     msg['To'] = "detorresrc@gmail.com"
 
-    message_body = format_message(message_object) + "<br/><br/><hr/><h3>Previous Word of the Day</h3>" + format_prev_messages()
-    msg.attach(MIMEText(message_body, "html"))
+    msg.attach(MIMEText(format_message(message_object), "html"))
+    msg.attach(MIMEText("<hr/><h1 style='color: blue'>Short Story</h1>" + short_story, "html"))
+    msg.attach(MIMEText("<hr/><h1 style='color: blue'>Previous Word of the Day</h1>" + format_prev_messages(), "html"))
 
     server = smtplib.SMTP(os.getenv('EMAIL_HOST'), int(os.getenv('EMAIL_PORT')))
     server.starttls()

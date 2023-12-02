@@ -14,8 +14,8 @@ def initialize():
     messages = db["messages"]
 
 
-def add_new_word(word, content):
-    messages.insert_one({"word": word.lower(), "content": content, "created_at": datetime.now()})
+def add_new_word(word, content, short_story):
+    messages.insert_one({"word": word.lower(), "content": content, "short_story": short_story, "created_at": datetime.now()})
 
 
 def get_words():

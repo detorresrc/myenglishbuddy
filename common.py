@@ -15,6 +15,13 @@ def get_ai_message(existing_words):
     ]
 
 
+def get_ai_short_story_message(word_of_the_day):
+    return [
+        {"role": "system", "content": "You are a helpful english teacher and web developer assistant."},
+        {"role": "user", "content": f"Create a short story uses the word {word_of_the_day} , send in a html format only and make the '{word_of_the_day}' bold."}
+    ]
+
+
 def get_ai_format_email(message_object):
     return [
         {"role": "system", "content": "You are a helpful application developer assistant."},
@@ -22,3 +29,4 @@ def get_ai_format_email(message_object):
          "content": "format this in a html format, this is the json object: " + message_object
          }
     ]
+
